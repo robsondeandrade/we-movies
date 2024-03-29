@@ -9,6 +9,7 @@ export const useCartMovies = () => {
     const { setCartMovies } = useMovieStore()
 
     const {
+        refetch,
         data: cartMovies,
         isLoading: isLoadingCartMovies,
         error: cartMoviesError,
@@ -31,6 +32,7 @@ export const useCartMovies = () => {
     })
 
     return {
+        refetch,
         cartMovies,
         isLoadingCartMovies,
         cartMoviesError,

@@ -1,18 +1,23 @@
-import { Table } from '../Table'
-import { Button } from '../Button'
+import { useNavigate } from 'react-router-dom'
 import { columns } from './CheckoutSummaryColumns'
 import { ContainerFeedback } from '../ContainerFeedback'
 import { CheckoutSummaryMobile } from './CheckoutSummaryMobile'
-import { useNavigate } from 'react-router-dom'
 import { useCartMovies } from '@/data/hooks/useCartMovies'
+import { LoadingOverlay } from '../LoadingOverlay'
+import { Button } from '../Button'
+import { Table } from '../Table'
 import * as S from './CheckoutSummary.styled'
 
 export const CheckoutSummary = () => {
     const navigate = useNavigate()
-    const { cartMovies } = useCartMovies()
-    console.log('cartMovies', cartMovies)
+    const { cartMovies, isLoadingCartMovies, refetch } = useCartMovies()
+
     const handleCartClick = () => {
         navigate('/compra-realizada')
+    }
+
+    if (isLoadingCartMovies) {
+        return <LoadingOverlay />
     }
 
     if (cartMovies?.length === 0) {
@@ -24,7 +29,7 @@ export const CheckoutSummary = () => {
                 title='Parece que não há nada por aqui :('
                 imageUrl='/images/empty-state.png'
                 buttonText='Recarregar página'
-                onButtonClick={() => {}}
+                onButtonClick={refetch}
             />
         )
     }

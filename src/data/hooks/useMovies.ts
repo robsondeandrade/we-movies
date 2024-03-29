@@ -8,9 +8,10 @@ const useMovies = () => {
     const { setMovies } = useMovieStore()
 
     const {
+        refetch,
         data: movies,
-        isLoading: isLoadingMovies,
         error: moviesError,
+        isLoading: isLoadingMovies,
     } = useQuery('movies', movieService.fetchAllMovies, {
         onSuccess: (data) => {
             setMovies(data)
@@ -19,8 +20,9 @@ const useMovies = () => {
 
     return {
         movies,
-        isLoadingMovies,
+        refetch,
         moviesError,
+        isLoadingMovies,
     }
 }
 
