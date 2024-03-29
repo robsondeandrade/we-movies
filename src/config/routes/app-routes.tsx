@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { PATHS } from './paths'
-import { Home } from '@/page/Home'
+import { HomePage } from '@/page/HomePage'
 import { Header } from '@/ui/components/Header'
 
 export const AppRoutes = () => (
@@ -8,7 +8,7 @@ export const AppRoutes = () => (
         <Header />
         <Routes>
             <Route
-                element={<Home />}
+                element={<HomePage />}
                 path='/'
             />
 
