@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { MdSearch } from 'react-icons/md'
 
-
 export const Container = styled.div`
     display: flex;
     align-items: center;
@@ -16,7 +15,7 @@ export const Input = styled.input`
     padding: 16px;
     border-radius: 4px;
     border: none;
-
+    color: ${({ theme }) => theme.colors.primary};
     &:focus {
         outline: none;
         border: 2px solid ${({ theme }) => theme.colors.blue};

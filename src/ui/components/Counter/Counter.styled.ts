@@ -9,24 +9,22 @@ export const Container = styled.div`
 
 export const CountButton = styled.div`
     cursor: pointer;
-    border-radius: 50%;
-    width: 1.125rem;
-    height: 1.125rem;
-
-    svg {
-        margin: auto;
-        width: 1.3rem;
-        height: 1.3rem;
-        color: ${({ theme }) => theme.colors.blue};
-    }
-`
-
-export const InputNumber = styled.div`
-    padding: 2.6px 0;
-    min-width: 3.77rem;
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+export const TextQuantity = styled.span`
+    font-weight: 400;
+`
+
+export const BoxQuantity = styled.div`
+    padding: 1.5px 0;
+    width: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     border: 1px solid ${({ theme }) => theme.colors.gray[300]};
     border-radius: 4px;
     outline: none;

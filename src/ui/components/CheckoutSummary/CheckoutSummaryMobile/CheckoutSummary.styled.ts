@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { MdDelete } from 'react-icons/md'
 
 export const Container = styled.div`
     display: flex;
@@ -8,30 +7,36 @@ export const Container = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     font-weight: 700;
-    @media (min-width: 768px) {
+    @media (min-width: 769px) {
         display: none;
     }
 `
 
 export const BoxDetails = styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     width: 100%;
 `
 
-export const ContentInfoHeader = styled.div`
+export const TextTitle = styled.span`
+    font-size: 0.875rem;
+    width: 80%;
+`
+
+export const ContentInfoQuantity = styled.div`
     display: flex;
-    align-items: flex-start;
+    height: 82px;
+    flex-direction: column;
     justify-content: space-between;
     margin-left: 1rem;
 `
 
 export const ContentInfoValue = styled.div`
-    margin-left: 1rem;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
     flex-wrap: nowrap;
 `
 
@@ -39,7 +44,7 @@ export const BoxValue = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 0 0 1.5rem 1rem;
+    margin: 0 0 1rem 0;
     span {
         white-space: nowrap;
     }
@@ -56,11 +61,4 @@ export const BoxSubtotal = styled.div`
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    margin-right: 1rem;
-`
-
-export const IconDelete = styled(MdDelete)`
-    width: 26px;
-    height: 26px;
-    color: ${({ theme }) => theme.colors.blue};
 `

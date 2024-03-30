@@ -32,13 +32,18 @@ export const ContentProduct = styled.div`
     }
 `
 
+export const TextTitle = styled.span`
+    font-weight: 700;
+    font-size: 0.875rem;
+`
 export const Description = styled.span`
     font-weight: 700;
 `
 
 export const Text = styled.span`
     font-weight: 700;
-    margin-right: 2rem;
+    font-size: 0.875rem;
+    margin-right: 1.5rem;
     color: ${({ theme }) => theme.colors.gray[500]};
 `
 
@@ -57,12 +62,6 @@ export const BoxRemove = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 1rem;
-    svg {
-        width: 26px;
-        height: 26px;
-        color: ${({ theme }) => theme.colors.blue};
-    }
 `
 
 export const ContentOrder = styled.div`
@@ -80,15 +79,18 @@ export const ContentOrder = styled.div`
 export const ContentButton = styled.div`
     width: 10.81rem;
     @media (max-width: 768px) {
+        button {
+            font-size: 0.875rem;
+        }
         width: 100%;
     }
 `
 
 export const BoxValue = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     @media (max-width: 768px) {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         width: 100%;
         margin-bottom: 1rem;
     }

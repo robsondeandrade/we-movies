@@ -17,7 +17,7 @@ export const Header = () => {
             <S.BoxCart onClick={redirectToCartPage}>
                 <S.ContentCart>
                     <S.Text>Meu Carrinho</S.Text>
-                    <span>{cartItems?.length} itens</span>
+                    <S.TextQuantity>{cartItems?.length} itens</S.TextQuantity>
                 </S.ContentCart>
                 <ShoppingBagIcon />
             </S.BoxCart>

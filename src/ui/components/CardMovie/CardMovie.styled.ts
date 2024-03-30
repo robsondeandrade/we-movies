@@ -5,10 +5,10 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 19.15rem;
+    box-sizing: border-box;
+    width: 21.1rem;
     padding: 1rem;
     gap: 0.5rem;
-    font-weight: 700;
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.gray[800]};
     border-radius: 4px;
@@ -18,6 +18,11 @@ export const Container = styled.div`
     }
 `
 
+export const Title = styled.span`
+    font-size: 0.75rem;
+    font-weight: 700;
+`
+
 export const BoxQuantity = styled.div`
     display: flex;
     align-items: center;
@@ -25,6 +30,12 @@ export const BoxQuantity = styled.div`
     gap: 0.1rem;
 `
 
+export const TextQuantity = styled.span`
+    font-weight: 400;
+    font-size: 0.75rem;
+`
+
 export const TextPrice = styled.span`
     color: ${({ theme }) => theme.colors.primary};
+    font-weight: 700;
 `

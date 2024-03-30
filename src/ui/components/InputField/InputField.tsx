@@ -5,7 +5,7 @@ export const InputField = ({ placeholder }: IInputFieldProps) => {
     return (
         <S.Container>
             <S.Input placeholder={placeholder} />
-            <S.SearchIcon size='20px' />
+            <S.SearchIcon size='24px' />
         </S.Container>
     )
 }

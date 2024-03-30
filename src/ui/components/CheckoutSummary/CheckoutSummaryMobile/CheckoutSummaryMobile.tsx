@@ -2,6 +2,7 @@ import { useCartMovies } from '@/data/hooks/useCartMovies'
 import { formatCurrency } from '@/data/utils/formatCurrency'
 import { Counter } from '../../Counter'
 import { ICardMovieProps } from '../CheckoutSummary.types'
+import { DeleteIcon } from '../../Icons'
 import * as S from './CheckoutSummary.styled'
 
 export function CheckoutSummaryMobile({ movie }: ICardMovieProps) {
@@ -21,25 +22,24 @@ export function CheckoutSummaryMobile({ movie }: ICardMovieProps) {
                 height={82}
             />
             <S.BoxDetails>
-                <S.ContentInfoHeader>
-                    <span>{title}</span>
-                    <S.BoxValue>
-                        <span>R$ {formatCurrency(price)}</span>
-                        <button
-                            onClick={handleRemoveItem}
-                            aria-label={`Remover ${title} do carrinho`}
-                        >
-                            <S.IconDelete />
-                        </button>
-                    </S.BoxValue>
-                </S.ContentInfoHeader>
-
-                <S.ContentInfoValue>
+                <S.ContentInfoQuantity>
+                    <S.TextTitle>{title}</S.TextTitle>
                     <Counter
                         increaseQuantity={handleIncreaseQuantity}
                         decreaseQuantity={handleDecreaseQuantity}
                         value={quantity}
                     />
+                </S.ContentInfoQuantity>
+
+                <S.ContentInfoValue>
+                    <S.BoxValue>
+                        <span>R$ {formatCurrency(price)}</span>
+                        <DeleteIcon
+                            isSmall
+                            onClick={handleRemoveItem}
+                        />
+                    </S.BoxValue>
+
                     <S.BoxSubtotal>
                         <S.Text>SUBTOTAL</S.Text>
                         <span>R$ {formatCurrency(price * quantity)}</span>

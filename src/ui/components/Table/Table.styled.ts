@@ -11,6 +11,7 @@ export const Container = styled.table`
     th,
     th {
         color: ${({ theme }) => theme.colors.gray[500]};
+        font-size: 0.875rem;
     }
 
     th,
@@ -19,7 +20,7 @@ export const Container = styled.table`
         padding-bottom: 1.75rem;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `

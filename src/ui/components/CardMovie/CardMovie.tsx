@@ -7,10 +7,12 @@ import { ICardMovieProps } from './CardMovie.types'
 import * as S from './CardMovie.styled'
 
 export const CardMovie = ({ movie }: ICardMovieProps) => {
-    const theme = useTheme()
+    const { colors } = useTheme()
     const { cartMovies, addMovieToCart } = useCartMovies()
-    const { id, image, title, price, quantityInCart = 0 } = movie
-    const isInCart = cartMovies?.some((movie) => movie.id === id)
+    const { id, image, title, price } = movie
+    const movieInCart = cartMovies?.find((cartItem) => cartItem.id === id)
+    const quantity = movieInCart?.quantity || 0
+    const buttonBackground = movieInCart ? colors.success : colors.blue
 
     return (
         <S.Container>
@@ -21,16 +23,16 @@ export const CardMovie = ({ movie }: ICardMovieProps) => {
                 alt={`Imagem do filme ${title}`}
             />
 
-            <span>{title}</span>
+            <S.Title>{title}</S.Title>
             <S.TextPrice>R$ {formatCurrency(price)}</S.TextPrice>
 
             <Button
-                background={isInCart ? theme.colors.success : theme.colors.blue}
+                background={buttonBackground}
                 onClick={() => addMovieToCart(movie)}
             >
                 <S.BoxQuantity>
                     <MdAddShoppingCart size={13.6} />
-                    <span>{quantityInCart}</span>
+                    <S.TextQuantity>{quantity}</S.TextQuantity>
                 </S.BoxQuantity>
                 ADICIONAR AO CARRINHO
             </Button>

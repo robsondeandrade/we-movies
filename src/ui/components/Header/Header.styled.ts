@@ -8,6 +8,7 @@ export const Container = styled.div`
     margin: auto;
     height: 88px;
     max-width: 1048px;
+    padding: 0 1rem;
     @media (max-width: 1048px) {
         padding: 0 1rem;
     }
@@ -35,7 +36,14 @@ export const TitleLink = styled(Link)`
 `
 
 export const Text = styled.span`
+    font-weight: 600;
+    font-size: 0.875rem;
     @media (max-width: 768px) {
         display: none;
     }
+`
+export const TextQuantity = styled.span`
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.gray[500]};
 `

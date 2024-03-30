@@ -1,14 +1,14 @@
-import { MdDelete } from 'react-icons/md'
 import { Counter } from '../Counter'
 import { TMutateFunction } from './CheckoutSummary.types'
 import { IMovie } from '@/data/@types/global.types'
 import * as S from './CheckoutSummary.styled'
+import { DeleteIcon } from '../Icons'
 
 export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'product',
         title: 'PRODUTO',
-        style: { width: '45%' },
+        style: { width: '30%' },
         renderer: (movie: IMovie) => (
             <S.ContentProduct>
                 <img
@@ -18,7 +18,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
                     alt={`Imagem de ${movie.title}`}
                 />
                 <S.BoxDescription>
-                    <S.Description>{movie.title}</S.Description>
+                    <S.TextTitle>{movie.title}</S.TextTitle>
                     <S.Description>R${movie.price}</S.Description>
                 </S.BoxDescription>
             </S.ContentProduct>
@@ -28,7 +28,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'quantity',
         title: 'QTD',
-        style: { width: '25%' },
+        style: { width: '35%' },
         renderer: (movie: IMovie) => (
             <Counter
                 increaseQuantity={() =>
@@ -45,7 +45,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'subtotal',
         title: 'SUBTOTAL',
-        style: { width: '20%' },
+        style: { width: '25%' },
         renderer: (movie: IMovie) => (
             <S.Description>${(movie.price * movie.quantity).toFixed(2)}</S.Description>
         ),
@@ -54,10 +54,10 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'remove',
         title: '',
-        style: { width: '10%' },
+        style: { width: '5%' },
         renderer: (movie: IMovie) => (
             <S.BoxRemove>
-                <MdDelete
+                <DeleteIcon
                     onClick={() => changeMovieQuantity({ movieId: movie.id, change: 'remove' })}
                 />
             </S.BoxRemove>
