@@ -1,13 +1,20 @@
-import useMovies from '@/data/hooks/useMovies'
 import { CardMovie } from '../CardMovie'
 import { InputField } from '../InputField'
 import { LoadingOverlay } from '../LoadingOverlay'
 import { ContainerFeedback } from '../ContainerFeedback'
-import * as S from './ListMovies.styled'
 import { IMovie } from '@/data/@types/global.types'
+import { useMovies } from '@/data/hooks/useMovies'
+import { useMovieStore } from '@/data/stores/useMovieStore'
+import * as S from './ListMovies.styled'
 
 export const ListMovies = () => {
-    const { movies, isLoadingMovies, refetch } = useMovies()
+    const { setSearchTerm, searchTerm } = useMovieStore()
+    const { movies, isLoadingMovies, refetch } = useMovies(searchTerm)
+
+    const handleResetSearch = () => {
+        setSearchTerm('')
+        refetch()
+    }
 
     if (!isLoadingMovies && (!movies || movies?.length === 0)) {
         return (
@@ -18,14 +25,17 @@ export const ListMovies = () => {
                 title='Parece que não há nada por aqui :('
                 imageUrl='/images/empty-state.png'
                 buttonText='Recarregar página'
-                onButtonClick={refetch}
+                onButtonClick={handleResetSearch}
             />
         )
     }
 
     return (
         <S.Container>
-            <InputField placeholder='Buscar filme pelo nome' />
+            <InputField
+                onSearch={setSearchTerm}
+                placeholder='Buscar filme pelo nome'
+            />
 
             {isLoadingMovies && <LoadingOverlay />}
 

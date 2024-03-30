@@ -1,4 +1,4 @@
 export interface IInputFieldProps {
-    placeholder: string;
-  }
-  
+    placeholder: string
+    onSearch: (searchTerm: string) => void
+}

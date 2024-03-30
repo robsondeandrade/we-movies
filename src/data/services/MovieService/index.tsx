@@ -2,10 +2,12 @@ import API from '@/config/axios'
 import { IMovie } from '@/data/@types/global.types'
 
 export class MovieService {
-    async fetchAllMovies() {
-        const { data } = await API.get('/products')
+    async fetchAllMovies(title?: string) {
+        const queryParam = title ? `?title_like=${title}` : ''
+        const { data } = await API.get(`/products${queryParam}`)
         return data
     }
+
     async fetchAllCartMovies() {
         const { data } = await API.get('/cart')
         return data
@@ -25,5 +27,15 @@ export class MovieService {
     async removeMovieFromCart(id: string) {
         const { data } = await API.delete(`/cart/${id}`)
         return data
+    }
+
+    async clearCart() {
+        const { data: cartItems } = await API.get('/cart')
+        const deletePromises = cartItems.map((item: { id: string }) =>
+            API.delete(`/cart/${item.id}`),
+        )
+
+        await Promise.all(deletePromises)
+        return cartItems
     }
 }

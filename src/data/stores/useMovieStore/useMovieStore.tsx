@@ -5,8 +5,10 @@ export const useMovieStore = zustand.create<IMovieStoreState & IMovieStoreAction
     movies: [],
     cartItems: [],
     totalAmountDue: 0,
+    searchTerm: '',
 
     setMovies: (movies) => set(() => ({ movies })),
+    setSearchTerm: (item) => set({ searchTerm: item }),
     setCartMovies: (cartItems) => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
         set({ cartItems, totalAmountDue: total })

@@ -13,7 +13,7 @@ export const PurchaseMade = () => {
             fitType='contain'
             width={'294.96px'}
             height={'307px'}
-            title='Parece que não há nada por aqui :('
+            title='Compra realizada com sucesso!'
             imageUrl='/images/successful-purchase.png'
             buttonText='VOLTAR'
             onButtonClick={redirectToHomePage}

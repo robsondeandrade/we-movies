@@ -70,8 +70,21 @@ export const useCartMovies = () => {
         onSuccess: () => queryClient.invalidateQueries('cartMovies'),
     })
 
+    const { mutate: clearCart } = useMutation(
+        async () => {
+            await movieService.clearCart()
+        },
+        {
+            onSuccess: () => {
+                setCartMovies([])
+                queryClient.invalidateQueries('cartMovies')
+            },
+        },
+    )
+
     return {
         refetch,
+        clearCart,
         cartMovies,
         addMovieToCart,
         cartMoviesError,

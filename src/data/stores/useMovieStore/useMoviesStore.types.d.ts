@@ -8,10 +8,12 @@ export interface IMovieStoreState {
     movies: IMovie[]
     cartItems: ICartItem[]
     totalAmountDue: number
+    searchTerm: string
 }
 
 export interface IMovieStoreActions {
     setMovies: (movies: Movie[]) => void
     setCartMovies: (cartItems: CartItem[]) => void
     calculateSubtotal: (item: IMovie) => number
+    setSearchTerm: (searchTerm: string) => void
 }

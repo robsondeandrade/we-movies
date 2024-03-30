@@ -16,6 +16,12 @@ export const Container = styled.div`
     }
 `
 
+export const Title = styled.div`
+    font-size: 20px;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.primary};
+`
+
 export const ImageWrapper = styled.div<IStyledImageWrapperProps>`
     position: relative;
     max-width: ${({ width }) => width || '100%'};

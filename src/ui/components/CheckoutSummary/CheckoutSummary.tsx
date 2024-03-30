@@ -12,12 +12,14 @@ import * as S from './CheckoutSummary.styled'
 
 export const CheckoutSummary = () => {
     const navigate = useNavigate()
-    const { refetch, cartMovies, changeMovieQuantity, isLoadingCartMovies } = useCartMovies()
+    const { refetch, cartMovies, changeMovieQuantity, isLoadingCartMovies, clearCart } =
+        useCartMovies()
     const { totalAmountDue } = useMovieStore()
 
     const columns = getColumns(changeMovieQuantity)
 
     const handleCartClick = () => {
+        clearCart()
         navigate('/compra-realizada')
     }
 

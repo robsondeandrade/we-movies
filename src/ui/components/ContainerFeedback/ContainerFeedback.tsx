@@ -28,7 +28,7 @@ export const ContainerFeedback = ({
 }: StateContainerProps) => {
     return (
         <S.Container>
-            <h2>{title}</h2>
+            <S.Title>{title}</S.Title>
             <S.ImageWrapper
                 width={width}
                 height={height}

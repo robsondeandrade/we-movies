@@ -4,15 +4,16 @@ import { useQuery } from 'react-query'
 
 const movieService = new MovieService()
 
-const useMovies = () => {
+export const useMovies = (titleFilter?: string) => {
     const { setMovies } = useMovieStore()
+    const fetchMovies = () => movieService.fetchAllMovies(titleFilter)
 
     const {
         refetch,
         data: movies,
         error: moviesError,
         isLoading: isLoadingMovies,
-    } = useQuery('movies', movieService.fetchAllMovies, {
+    } = useQuery(['movies', titleFilter], fetchMovies, {
         onSuccess: (data) => {
             setMovies(data)
         },
@@ -25,5 +26,3 @@ const useMovies = () => {
         isLoadingMovies,
     }
 }
-
-export default useMovies
