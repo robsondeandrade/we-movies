@@ -15,6 +15,11 @@ export const Container = styled.div`
         margin: 0 1rem;
     }
 `
+export const ContainerLoading = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
 
 export const ContentProduct = styled.div`
     display: flex;

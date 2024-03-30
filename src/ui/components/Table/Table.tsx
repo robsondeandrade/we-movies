@@ -1,4 +1,4 @@
-import { ITableProps } from './Table.type'
+import { ITableProps } from './Table.types'
 import * as S from './Table.styled'
 
 export const Table = ({ data, columns, uniqueKey }: ITableProps) => {

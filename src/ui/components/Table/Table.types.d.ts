@@ -1,5 +1,3 @@
-import { IMovie } from '@/data/services/MovieService/type'
-
 export interface IColumn {
     id: string
     title: string
@@ -8,7 +6,7 @@ export interface IColumn {
 }
 
 export interface ITableProps {
-    data: IMovie[]
+    data?: IMovie[]
     columns: IColumn[]
     uniqueKey: 'id'
 }

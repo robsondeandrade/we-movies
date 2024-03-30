@@ -1,5 +1,5 @@
 import API from '@/config/axios'
-import { IMovie } from './type'
+import { IMovie } from '@/data/@types/global.types'
 
 export class MovieService {
     async fetchAllMovies() {
@@ -16,7 +16,7 @@ export class MovieService {
         return data
     }
 
-    async updateMovieInCart(movieDetails: Partial<IMovie>) {
+    async updateMovieInCart(movieDetails: IMovie) {
         const { id, ...updateData } = movieDetails
         const { data } = await API.put(`/cart/${id}`, updateData)
         return data

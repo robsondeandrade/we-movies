@@ -1,13 +1,13 @@
 import { CgAdd } from 'react-icons/cg'
 import { BiMinusCircle } from 'react-icons/bi'
-import { ICounterProps } from './Counter.type'
+import { ICounterProps } from './Counter.types'
 import * as S from './Counter.styled'
 
-export const Counter = ({ value = 1, onValueChange }: ICounterProps) => {
+export const Counter = ({ value, decreaseQuantity, increaseQuantity }: ICounterProps) => {
     return (
         <S.Container>
             <S.CountButton
-                onClick={() => value !== 1 && onValueChange(value - 1)}
+                onClick={decreaseQuantity}
                 aria-label='Diminuir'
             >
                 <BiMinusCircle />
@@ -16,7 +16,7 @@ export const Counter = ({ value = 1, onValueChange }: ICounterProps) => {
             <S.InputNumber>{value}</S.InputNumber>
 
             <S.CountButton
-                onClick={() => onValueChange(value + 1)}
+                onClick={increaseQuantity}
                 aria-label='Aumentar'
             >
                 <CgAdd />

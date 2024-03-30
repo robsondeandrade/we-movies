@@ -1,7 +1,7 @@
 export interface IMovie {
-    id: number
+    quantity: number
+    id: string
     title: string
     price: number
     image: string
-    quantityInCart: number
 }

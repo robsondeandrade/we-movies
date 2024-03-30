@@ -1,29 +1,36 @@
-import { ICardMovieProps } from './CardMovie.type'
-import { formatCurrency } from '@/data/utils/formatCurrency'
+import { useTheme } from 'styled-components'
 import { MdAddShoppingCart } from 'react-icons/md'
+import { formatCurrency } from '@/data/utils/formatCurrency'
+import { useCartMovies } from '@/data/hooks/useCartMovies'
 import { Button } from '../Button'
+import { ICardMovieProps } from './CardMovie.types'
 import * as S from './CardMovie.styled'
 
-export const CardMovie = ({ product }: ICardMovieProps) => {
+export const CardMovie = ({ movie }: ICardMovieProps) => {
+    const theme = useTheme()
+    const { cartMovies, addMovieToCart } = useCartMovies()
+    const { id, image, title, price, quantityInCart = 0 } = movie
+    const isInCart = cartMovies?.some((movie) => movie.id === id)
+
     return (
         <S.Container>
             <img
-                src={product?.image}
+                src={image}
                 width={147}
                 height={188}
-                alt='Imagem do filme'
+                alt={`Imagem do filme ${title}`}
             />
 
-            <span>{product?.title}</span>
-            <S.TextPrice>R$ {formatCurrency(product?.price)}</S.TextPrice>
+            <span>{title}</span>
+            <S.TextPrice>R$ {formatCurrency(price)}</S.TextPrice>
 
-            <Button onClick={() => {}}>
+            <Button
+                background={isInCart ? theme.colors.success : theme.colors.blue}
+                onClick={() => addMovieToCart(movie)}
+            >
                 <S.BoxQuantity>
-                    <MdAddShoppingCart
-                        width={13.6}
-                        height={13.6}
-                    />
-                    <span>{product.quantityInCart || 0}</span>
+                    <MdAddShoppingCart size={13.6} />
+                    <span>{quantityInCart}</span>
                 </S.BoxQuantity>
                 ADICIONAR AO CARRINHO
             </Button>

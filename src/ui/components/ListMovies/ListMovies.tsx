@@ -1,15 +1,15 @@
 import useMovies from '@/data/hooks/useMovies'
-import { IMovie } from '@/data/services/MovieService/type'
 import { CardMovie } from '../CardMovie'
 import { InputField } from '../InputField'
 import { LoadingOverlay } from '../LoadingOverlay'
 import { ContainerFeedback } from '../ContainerFeedback'
 import * as S from './ListMovies.styled'
+import { IMovie } from '@/data/@types/global.types'
 
 export const ListMovies = () => {
     const { movies, isLoadingMovies, refetch } = useMovies()
 
-    if (!isLoadingMovies && movies?.length === 0) {
+    if (!isLoadingMovies && (!movies || movies?.length === 0)) {
         return (
             <ContainerFeedback
                 fitType='cover'
@@ -33,7 +33,7 @@ export const ListMovies = () => {
                 <S.ContentMovie>
                     {movies?.map((movie: IMovie) => (
                         <CardMovie
-                            product={movie}
+                            movie={movie}
                             key={movie.id}
                         />
                     ))}

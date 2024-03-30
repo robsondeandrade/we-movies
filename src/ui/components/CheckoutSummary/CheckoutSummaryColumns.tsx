@@ -1,54 +1,65 @@
 import { MdDelete } from 'react-icons/md'
 import { Counter } from '../Counter'
+import { TMutateFunction } from './CheckoutSummary.types'
+import { IMovie } from '@/data/@types/global.types'
 import * as S from './CheckoutSummary.styled'
-import { IMovie } from '@/data/services/MovieService/type'
 
-export const columns = [
+export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'product',
         title: 'PRODUTO',
         style: { width: '45%' },
-        renderer: (product: IMovie) => (
+        renderer: (movie: IMovie) => (
             <S.ContentProduct>
                 <img
                     width={91}
                     height={114}
-                    src={product.image}
-                    alt={product.title}
+                    src={movie.image}
+                    alt={`Imagem de ${movie.title}`}
                 />
                 <S.BoxDescription>
-                    <S.Description>{product.title}</S.Description>
-                    <S.Description>R${product.price}</S.Description>
+                    <S.Description>{movie.title}</S.Description>
+                    <S.Description>R${movie.price}</S.Description>
                 </S.BoxDescription>
             </S.ContentProduct>
         ),
     },
+
     {
         id: 'quantity',
         title: 'QTD',
         style: { width: '25%' },
-        renderer: () => (
+        renderer: (movie: IMovie) => (
             <Counter
-                onValueChange={() => {}}
-                value={1}
+                increaseQuantity={() =>
+                    changeMovieQuantity({ movieId: movie.id, change: 'increase' })
+                }
+                decreaseQuantity={() =>
+                    changeMovieQuantity({ movieId: movie.id, change: 'decrease' })
+                }
+                value={movie.quantity}
             />
         ),
     },
+
     {
         id: 'subtotal',
         title: 'SUBTOTAL',
         style: { width: '20%' },
-        renderer: (product: IMovie) => (
-            <S.Description>${(product.price * product.quantityInCart).toFixed(2)}</S.Description>
+        renderer: (movie: IMovie) => (
+            <S.Description>${(movie.price * movie.quantity).toFixed(2)}</S.Description>
         ),
     },
+
     {
         id: 'remove',
         title: '',
         style: { width: '10%' },
-        renderer: () => (
+        renderer: (movie: IMovie) => (
             <S.BoxRemove>
-                <MdDelete />
+                <MdDelete
+                    onClick={() => changeMovieQuantity({ movieId: movie.id, change: 'remove' })}
+                />
             </S.BoxRemove>
         ),
     },

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { IStyledButtonProps } from './Button.type'
+import { IStyledButtonProps } from './Button.types'
 
 export const Button = styled.button<IStyledButtonProps>`
     display: flex;
@@ -12,7 +12,7 @@ export const Button = styled.button<IStyledButtonProps>`
     gap: 0.75rem;
     border-radius: 4px;
     border: none;
-    background-color: ${({ theme }) => theme.colors.blue};
+    background-color: ${({ background }) => background};
     color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
 `
