@@ -13,6 +13,7 @@ export const ToastContainer = styled.div<ToastContainerProps>`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-out,
         fadeOut 0.5s ease-out ${({ $duration }) => `${$duration - 0.5}s`};
+    margin: auto;
 
     ${({ color }) => colorStyles[color]}
 
@@ -34,6 +35,10 @@ export const ToastContainer = styled.div<ToastContainerProps>`
         to {
             opacity: 0;
         }
+    }
+
+    @media (max-width: 768px) {
+        right: 0;
     }
 `
 
