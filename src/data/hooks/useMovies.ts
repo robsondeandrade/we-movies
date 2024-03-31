@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 const movieService = new MovieService()
 
 export const useMovies = (titleFilter?: string) => {
-    const { setMovies } = useMovieStore()
+    const { setMovies, showToast } = useMovieStore()
     const fetchMovies = () => movieService.fetchAllMovies(titleFilter)
 
     const {
@@ -17,6 +17,14 @@ export const useMovies = (titleFilter?: string) => {
         onSuccess: (data) => {
             setMovies(data)
         },
+        onError: () => {
+            showToast(
+                'Erro ao carregar os filmes. Por favor, tente novamente mais tarde.',
+                5000,
+                'error',
+            )
+        },
+        refetchOnWindowFocus: false,
     })
 
     return {

@@ -12,8 +12,7 @@ import * as S from './CheckoutSummary.styled'
 
 export const CheckoutSummary = () => {
     const navigate = useNavigate()
-    const { refetch, cartMovies, changeMovieQuantity, isLoadingCartMovies, clearCart } =
-        useCartMovies()
+    const { cartMovies, changeMovieQuantity, isLoadingCartMovies, clearCart } = useCartMovies()
     const { totalAmountDue } = useMovieStore()
 
     const columns = getColumns(changeMovieQuantity)
@@ -40,7 +39,7 @@ export const CheckoutSummary = () => {
                 title='Parece que não há nada por aqui :('
                 imageUrl='/images/empty-state.png'
                 buttonText='Recarregar página'
-                onButtonClick={refetch}
+                onButtonClick={() => navigate('/')}
             />
         )
     }
@@ -53,7 +52,10 @@ export const CheckoutSummary = () => {
                 uniqueKey='id'
             />
             {cartMovies?.map((movie) => (
-                <CheckoutSummaryMobile movie={movie} />
+                <CheckoutSummaryMobile
+                    movie={movie}
+                    key={movie.id}
+                />
             ))}
 
             <S.ContentOrder>

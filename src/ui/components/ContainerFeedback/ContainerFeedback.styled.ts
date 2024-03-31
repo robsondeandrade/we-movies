@@ -36,7 +36,7 @@ export const ImageWrapper = styled.div<IStyledImageWrapperProps>`
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: ${({ fitType }) => fitType};
+        object-fit: ${({ $fitType }) => $fitType};
         object-position: center;
     }
 `

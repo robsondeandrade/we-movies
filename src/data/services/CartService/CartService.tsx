@@ -1,13 +1,7 @@
 import API from '@/config/axios'
 import { IMovie } from '@/data/@types/global.types'
 
-export class MovieService {
-    async fetchAllMovies(title?: string) {
-        const queryParam = title ? `?title_like=${title}` : ''
-        const { data } = await API.get(`/products${queryParam}`)
-        return data
-    }
-
+export class CartService {
     async fetchAllCartMovies() {
         const { data } = await API.get('/cart')
         return data

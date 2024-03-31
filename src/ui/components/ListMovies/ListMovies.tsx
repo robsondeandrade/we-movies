@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { CardMovie } from '../CardMovie'
 import { InputField } from '../InputField'
 import { LoadingOverlay } from '../LoadingOverlay'
@@ -10,11 +12,21 @@ import * as S from './ListMovies.styled'
 export const ListMovies = () => {
     const { setSearchTerm, searchTerm } = useMovieStore()
     const { movies, isLoadingMovies, refetch } = useMovies(searchTerm)
+    const location = useLocation()
 
     const handleResetSearch = () => {
         setSearchTerm('')
         refetch()
     }
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search)
+        const searchQuery = queryParams.get('search')
+        if (searchQuery !== null && searchQuery !== searchTerm) {
+            setSearchTerm(searchQuery)
+            refetch()
+        }
+    }, [location, setSearchTerm, searchTerm, refetch])
 
     if (!isLoadingMovies && (!movies || movies?.length === 0)) {
         return (

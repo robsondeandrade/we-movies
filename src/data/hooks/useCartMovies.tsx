@@ -1,13 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { MovieService } from '@/data/services/MovieService'
+import { CartService } from '@/data/services/CartService'
 import { useMovieStore } from '../stores/useMovieStore'
 import { IMovie } from '../@types/global.types'
 
-const movieService = new MovieService()
+const movieService = new CartService()
 
 export const useCartMovies = () => {
     const queryClient = useQueryClient()
-    const { setCartMovies } = useMovieStore()
+    const { setCartMovies, showToast } = useMovieStore()
 
     const {
         refetch,
@@ -18,6 +18,14 @@ export const useCartMovies = () => {
         onSuccess: (data: IMovie[]) => {
             setCartMovies(data)
         },
+        onError: () => {
+            showToast(
+                'Erro ao carregar os filmes do carrinho. Por favor, tente novamente.',
+                5000,
+                'error',
+            )
+        },
+        refetchOnWindowFocus: false,
     })
 
     const addOrUpdateMovieInCart = async (movieToAdd: IMovie) => {
@@ -64,10 +72,16 @@ export const useCartMovies = () => {
 
     const { mutate: addMovieToCart } = useMutation(addOrUpdateMovieInCart, {
         onSuccess: () => queryClient.invalidateQueries('cartMovies'),
+        onError: () => {
+            showToast('Erro ao adicionar ou atualizar filme no carrinho.', 5000, 'error')
+        },
     })
 
     const { mutate: changeMovieQuantity } = useMutation(handleChangeMovieQuantity, {
         onSuccess: () => queryClient.invalidateQueries('cartMovies'),
+        onError: () => {
+            showToast('Erro ao alterar a quantidade do filme no carrinho.', 5000, 'error')
+        },
     })
 
     const { mutate: clearCart } = useMutation(
@@ -78,6 +92,9 @@ export const useCartMovies = () => {
             onSuccess: () => {
                 setCartMovies([])
                 queryClient.invalidateQueries('cartMovies')
+            },
+            onError: () => {
+                showToast('Erro ao limpar o carrinho.', 5000, 'error')
             },
         },
     )

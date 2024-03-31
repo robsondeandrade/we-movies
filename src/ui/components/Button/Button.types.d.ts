@@ -9,5 +9,5 @@ export interface IButtonProps {
 export interface IStyledButtonProps {
     width: string
     height: string
-    background: string
+    $background: string
 }

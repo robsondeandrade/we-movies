@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { MdSearch } from 'react-icons/md'
 
-export const Container = styled.div`
+export const Container = styled.form`
     display: flex;
     align-items: center;
     position: relative;

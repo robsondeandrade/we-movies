@@ -6,6 +6,12 @@ export const useMovieStore = zustand.create<IMovieStoreState & IMovieStoreAction
     cartItems: [],
     totalAmountDue: 0,
     searchTerm: '',
+    toastInfo: {
+        message: '',
+        duration: 5000,
+        isVisible: false,
+        color: 'success',
+    },
 
     setMovies: (movies) => set(() => ({ movies })),
     setSearchTerm: (item) => set({ searchTerm: item }),
@@ -16,4 +22,7 @@ export const useMovieStore = zustand.create<IMovieStoreState & IMovieStoreAction
     calculateSubtotal: (item) => {
         return item?.price * item?.quantity
     },
+    showToast: (message, duration = 5000, color = 'success') =>
+        set({ toastInfo: { isVisible: true, message, duration, color } }),
+    hideToast: () => set((state) => ({ toastInfo: { ...state.toastInfo, isVisible: false } })),
 }))

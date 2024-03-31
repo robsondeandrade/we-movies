@@ -3,6 +3,7 @@ import { TMutateFunction } from './CheckoutSummary.types'
 import { IMovie } from '@/data/@types/global.types'
 import * as S from './CheckoutSummary.styled'
 import { DeleteIcon } from '../Icons'
+import { formatCurrency } from '@/data/utils/formatCurrency'
 
 export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
@@ -19,7 +20,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
                 />
                 <S.BoxDescription>
                     <S.TextTitle>{movie.title}</S.TextTitle>
-                    <S.Description>R${movie.price}</S.Description>
+                    <S.Description>R${formatCurrency(movie.price)}</S.Description>
                 </S.BoxDescription>
             </S.ContentProduct>
         ),
@@ -47,7 +48,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
         title: 'SUBTOTAL',
         style: { width: '25%' },
         renderer: (movie: IMovie) => (
-            <S.Description>${(movie.price * movie.quantity).toFixed(2)}</S.Description>
+            <S.Description>R${formatCurrency(movie.price * movie.quantity)}</S.Description>
         ),
     },
 

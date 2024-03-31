@@ -1,4 +1,3 @@
-'use client'
 import { Button } from '../Button'
 import * as S from './ContainerFeedback.styled'
 
@@ -8,21 +7,21 @@ interface StateContainerProps {
     height: string
     imageUrl: string
     buttonText: string
-    fitType: 'cover' | 'contain'
     onButtonClick: () => void
+    fitType: 'cover' | 'contain'
 }
 export interface IStyledImageWrapperProps {
     width: string
     height: string
-    fitType: 'contain' | 'cover'
+    $fitType: 'contain' | 'cover'
 }
 
 export const ContainerFeedback = ({
     width,
     title,
     height,
-    imageUrl,
     fitType,
+    imageUrl,
     buttonText,
     onButtonClick,
 }: StateContainerProps) => {
@@ -32,16 +31,16 @@ export const ContainerFeedback = ({
             <S.ImageWrapper
                 width={width}
                 height={height}
-                fitType={fitType}
+                $fitType={fitType}
             >
                 <img
-                    src={imageUrl}
                     alt={title}
+                    src={imageUrl}
                 />
             </S.ImageWrapper>
             <Button
-                onClick={onButtonClick}
                 width='173px'
+                onClick={onButtonClick}
             >
                 {buttonText}
             </Button>

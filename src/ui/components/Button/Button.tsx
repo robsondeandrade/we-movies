@@ -13,7 +13,7 @@ export const Button = ({
             onClick={onClick}
             width={width}
             height={height}
-            background={background}
+            $background={background}
         >
             {children}
         </S.Button>

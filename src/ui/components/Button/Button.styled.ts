@@ -12,7 +12,7 @@ export const Button = styled.button<IStyledButtonProps>`
     gap: 0.75rem;
     border-radius: 4px;
     border: none;
-    background-color: ${({ background }) => background};
+    background-color: ${({ $background }) => $background};
     color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
 `
