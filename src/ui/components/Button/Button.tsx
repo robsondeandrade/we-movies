@@ -6,13 +6,15 @@ export const Button = ({
     children,
     width = '100%',
     height = '40px',
+    disabled = false,
     background = '#009EDD',
 }: IButtonProps) => {
     return (
         <S.Button
-            onClick={onClick}
             width={width}
             height={height}
+            onClick={onClick}
+            disabled={disabled}
             $background={background}
         >
             {children}

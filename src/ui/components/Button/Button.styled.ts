@@ -15,4 +15,15 @@ export const Button = styled.button<IStyledButtonProps>`
     background-color: ${({ $background }) => $background};
     color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
+    transition: filter 0.3s ease;
+
+    &:hover {
+        filter: saturate(80%);
+    }
+
+    &:disabled {
+        background-color: ${({ theme }) => theme.colors.gray[300]};
+        cursor: not-allowed;
+        filter: none;
+    }
 `

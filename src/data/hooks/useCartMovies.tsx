@@ -1,22 +1,27 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { CartService } from '@/data/services/CartService'
+import { useNavigate } from 'react-router-dom'
 import { useMovieStore } from '../stores/useMovieStore'
-import { IMovie } from '../@types/global.types'
+import { IMovieCart } from '../@types/global.types'
+import {
+    CartService,
+    addOrUpdateMovieInCart,
+    handleChangeMovieQuantity,
+} from '@/data/services/CartService'
 
-const movieService = new CartService()
+const cartService = new CartService()
 
 export const useCartMovies = () => {
+    const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const { setCartMovies, showToast } = useMovieStore()
+    const { setMoviesInCart, showToast, moviesInCart } = useMovieStore()
 
     const {
         refetch,
         data: cartMovies,
-        error: cartMoviesError,
         isLoading: isLoadingCartMovies,
-    } = useQuery('cartMovies', movieService.fetchAllCartMovies, {
-        onSuccess: (data: IMovie[]) => {
-            setCartMovies(data)
+    } = useQuery('cartMovies', cartService.fetchAllCartMovies, {
+        onSuccess: (data: IMovieCart[]) => {
+            setMoviesInCart(data)
         },
         onError: () => {
             showToast(
@@ -28,84 +33,63 @@ export const useCartMovies = () => {
         refetchOnWindowFocus: false,
     })
 
-    const addOrUpdateMovieInCart = async (movieToAdd: IMovie) => {
-        const existingMovie = cartMovies?.find((movie) => movie.id === movieToAdd.id)
-        if (existingMovie) {
-            const updatedMovie = { ...existingMovie, quantity: existingMovie.quantity + 1 }
-            await movieService.updateMovieInCart(updatedMovie)
-        } else {
-            const newMovie = { ...movieToAdd, quantity: 1 }
-            await movieService.addMovieToCart(newMovie)
-        }
+    const onOperationSuccess = () => {
         queryClient.invalidateQueries('cartMovies')
     }
-
-    const handleChangeMovieQuantity = async ({
-        movieId,
-        change,
-    }: {
-        movieId: string
-        change: 'increase' | 'decrease' | 'remove'
-    }) => {
-        const movie = cartMovies?.find((movie) => movie.id === movieId)
-        if (!movie) return
-
-        switch (change) {
-            case 'increase':
-                movie.quantity += 1
-                break
-            case 'decrease':
-                movie.quantity = movie.quantity > 1 ? movie.quantity - 1 : 0
-                break
-            case 'remove':
-                movie.quantity = 0
-                break
-        }
-
-        if (movie.quantity > 0) {
-            await movieService.updateMovieInCart(movie)
-        } else {
-            await movieService.removeMovieFromCart(movieId)
-        }
-        queryClient.invalidateQueries('cartMovies')
-    }
-
-    const { mutate: addMovieToCart } = useMutation(addOrUpdateMovieInCart, {
-        onSuccess: () => queryClient.invalidateQueries('cartMovies'),
-        onError: () => {
-            showToast('Erro ao adicionar ou atualizar filme no carrinho.', 5000, 'error')
+    const { mutate: addMovieToCart } = useMutation<void, unknown, IMovieCart>(
+        async (movieToAdd) => {
+            await addOrUpdateMovieInCart(movieToAdd, moviesInCart, onOperationSuccess)
         },
-    })
-
-    const { mutate: changeMovieQuantity } = useMutation(handleChangeMovieQuantity, {
-        onSuccess: () => queryClient.invalidateQueries('cartMovies'),
-        onError: () => {
-            showToast('Erro ao alterar a quantidade do filme no carrinho.', 5000, 'error')
+        {
+            onSuccess: () => queryClient.invalidateQueries('cartMovies'),
+            onError: () => {
+                showToast('Erro ao adicionar ou atualizar filme no carrinho.', 5000, 'error')
+            },
         },
-    })
+    )
 
-    const { mutate: clearCart } = useMutation(
+    const { mutate: changeMovieQuantity } = useMutation(
+        async ({
+            movieId,
+            change,
+        }: {
+            movieId: string
+            change: 'increase' | 'decrease' | 'remove'
+        }) => {
+            await handleChangeMovieQuantity(movieId, change, moviesInCart, onOperationSuccess)
+        },
+        {
+            onSuccess: () => queryClient.invalidateQueries('cartMovies'),
+            onError: () => {
+                showToast('Erro ao alterar a quantidade do filme no carrinho.', 5000, 'error')
+            },
+        },
+    )
+
+    const { mutate: finalizePurchase, isLoading: isLoadingFinalizePurchase } = useMutation(
         async () => {
-            await movieService.clearCart()
+            await cartService.finalizePurchase()
         },
         {
             onSuccess: () => {
-                setCartMovies([])
+                setMoviesInCart([])
                 queryClient.invalidateQueries('cartMovies')
+                navigate('/compra-realizada')
             },
             onError: () => {
-                showToast('Erro ao limpar o carrinho.', 5000, 'error')
+                showToast('Erro ao finalizar a compra. tente novamente mais tarde.', 5000, 'error')
             },
+            retry: false,
         },
     )
 
     return {
         refetch,
-        clearCart,
         cartMovies,
         addMovieToCart,
-        cartMoviesError,
+        finalizePurchase,
         isLoadingCartMovies,
         changeMovieQuantity,
+        isLoadingFinalizePurchase,
     }
 }

@@ -1,16 +1,16 @@
+import { formatCurrency } from '@/data/utils/formatCurrency'
 import { Counter } from '../Counter'
 import { TMutateFunction } from './CheckoutSummary.types'
-import { IMovie } from '@/data/@types/global.types'
-import * as S from './CheckoutSummary.styled'
 import { DeleteIcon } from '../Icons'
-import { formatCurrency } from '@/data/utils/formatCurrency'
+import { IMovieCart } from '@/data/@types/global.types'
+import * as S from './CheckoutSummary.styled'
 
 export const getColumns = (changeMovieQuantity: TMutateFunction) => [
     {
         id: 'product',
         title: 'PRODUTO',
         style: { width: '30%' },
-        renderer: (movie: IMovie) => (
+        renderer: (movie: IMovieCart) => (
             <S.ContentProduct>
                 <img
                     width={91}
@@ -30,7 +30,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
         id: 'quantity',
         title: 'QTD',
         style: { width: '35%' },
-        renderer: (movie: IMovie) => (
+        renderer: (movie: IMovieCart) => (
             <Counter
                 increaseQuantity={() =>
                     changeMovieQuantity({ movieId: movie.id, change: 'increase' })
@@ -47,7 +47,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
         id: 'subtotal',
         title: 'SUBTOTAL',
         style: { width: '25%' },
-        renderer: (movie: IMovie) => (
+        renderer: (movie: IMovieCart) => (
             <S.Description>R${formatCurrency(movie.price * movie.quantity)}</S.Description>
         ),
     },
@@ -56,7 +56,7 @@ export const getColumns = (changeMovieQuantity: TMutateFunction) => [
         id: 'remove',
         title: '',
         style: { width: '5%' },
-        renderer: (movie: IMovie) => (
+        renderer: (movie: IMovieCart) => (
             <S.BoxRemove>
                 <DeleteIcon
                     onClick={() => changeMovieQuantity({ movieId: movie.id, change: 'remove' })}

@@ -4,6 +4,7 @@ export interface IButtonProps {
     height?: string
     children: ReactNode
     background?: string
+    disabled?: boolean
 }
 
 export interface IStyledButtonProps {

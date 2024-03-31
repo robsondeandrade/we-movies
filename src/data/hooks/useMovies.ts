@@ -11,7 +11,6 @@ export const useMovies = (titleFilter?: string) => {
     const {
         refetch,
         data: movies,
-        error: moviesError,
         isLoading: isLoadingMovies,
     } = useQuery(['movies', titleFilter], fetchMovies, {
         onSuccess: (data) => {
@@ -30,7 +29,6 @@ export const useMovies = (titleFilter?: string) => {
     return {
         movies,
         refetch,
-        moviesError,
         isLoadingMovies,
     }
 }

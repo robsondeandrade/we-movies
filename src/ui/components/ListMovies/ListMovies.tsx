@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CardMovie } from '../CardMovie'
 import { InputField } from '../InputField'
 import { LoadingOverlay } from '../LoadingOverlay'
@@ -13,17 +13,19 @@ export const ListMovies = () => {
     const { setSearchTerm, searchTerm } = useMovieStore()
     const { movies, isLoadingMovies, refetch } = useMovies(searchTerm)
     const location = useLocation()
+    const navigate = useNavigate()
 
     const handleResetSearch = () => {
-        setSearchTerm('')
+        navigate('/', { replace: true })
         refetch()
     }
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search)
         const searchQuery = queryParams.get('search')
-        if (searchQuery !== null && searchQuery !== searchTerm) {
-            setSearchTerm(searchQuery)
+
+        if (searchQuery !== searchTerm) {
+            setSearchTerm(searchQuery || '')
             refetch()
         }
     }, [location, setSearchTerm, searchTerm, refetch])
@@ -34,10 +36,10 @@ export const ListMovies = () => {
                 fitType='cover'
                 width={'449px'}
                 height={'265px'}
-                title='Parece que não há nada por aqui :('
-                imageUrl='/images/empty-state.png'
                 buttonText='Recarregar página'
                 onButtonClick={handleResetSearch}
+                imageUrl='/images/empty-state.png'
+                title='Parece que não há nada por aqui :('
             />
         )
     }

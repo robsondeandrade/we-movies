@@ -14,13 +14,13 @@ export interface IMovieStoreState {
     movies: IMovie[]
     searchTerm: string
     toastInfo: IToastInfo
-    cartItems: ICartItem[]
+    moviesInCart: ICartItem[]
     totalAmountDue: number
 }
 
 export interface IMovieStoreActions {
     setMovies: (movies: IMovie[]) => void
-    setCartMovies: (cartItems: ICartItem[]) => void
+    setMoviesInCart: (moviesInCart: ICartItem[]) => void
     calculateSubtotal: (item: ICartItem) => number
     setSearchTerm: (searchTerm: string) => void
     showToast: IToastActions['showToast']

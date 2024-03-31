@@ -1,5 +1,5 @@
 import API from '@/config/axios'
-import { IMovie } from '@/data/@types/global.types'
+import { IMovieCart } from '@/data/@types/global.types'
 
 export class CartService {
     async fetchAllCartMovies() {
@@ -7,12 +7,12 @@ export class CartService {
         return data
     }
 
-    async addMovieToCart(movieDetails: Partial<IMovie>) {
+    async addMovieToCart(movieDetails: IMovieCart) {
         const { data } = await API.post('/cart/', movieDetails)
         return data
     }
 
-    async updateMovieInCart(movieDetails: IMovie) {
+    async updateMovieInCart(movieDetails: IMovieCart) {
         const { id, ...updateData } = movieDetails
         const { data } = await API.put(`/cart/${id}`, updateData)
         return data
@@ -23,13 +23,14 @@ export class CartService {
         return data
     }
 
-    async clearCart() {
-        const { data: cartItems } = await API.get('/cart')
-        const deletePromises = cartItems.map((item: { id: string }) =>
-            API.delete(`/cart/${item.id}`),
-        )
+    async finalizePurchase() {
+        const { data: moviesInCart } = await API.get('/cart')
 
-        await Promise.all(deletePromises)
-        return cartItems
+        for (const item of moviesInCart) {
+            await API.delete(`/cart/${item.id}`)
+            await new Promise((resolve) => setTimeout(resolve, 100))
+        }
+
+        return moviesInCart
     }
 }

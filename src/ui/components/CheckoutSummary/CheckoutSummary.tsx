@@ -12,14 +12,18 @@ import * as S from './CheckoutSummary.styled'
 
 export const CheckoutSummary = () => {
     const navigate = useNavigate()
-    const { cartMovies, changeMovieQuantity, isLoadingCartMovies, clearCart } = useCartMovies()
-    const { totalAmountDue } = useMovieStore()
+    const { totalAmountDue, moviesInCart } = useMovieStore()
+    const {
+        finalizePurchase,
+        isLoadingCartMovies,
+        changeMovieQuantity,
+        isLoadingFinalizePurchase,
+    } = useCartMovies()
 
     const columns = getColumns(changeMovieQuantity)
 
-    const handleCartClick = () => {
-        clearCart()
-        navigate('/compra-realizada')
+    const handleFinalizePurchase = () => {
+        finalizePurchase()
     }
 
     if (isLoadingCartMovies) {
@@ -30,7 +34,7 @@ export const CheckoutSummary = () => {
         )
     }
 
-    if (!cartMovies || cartMovies?.length === 0) {
+    if (!moviesInCart || moviesInCart?.length === 0) {
         return (
             <ContainerFeedback
                 fitType='cover'
@@ -47,11 +51,11 @@ export const CheckoutSummary = () => {
     return (
         <S.Container>
             <Table
-                data={cartMovies}
+                data={moviesInCart}
                 columns={columns}
                 uniqueKey='id'
             />
-            {cartMovies?.map((movie) => (
+            {moviesInCart?.map((movie) => (
                 <CheckoutSummaryMobile
                     movie={movie}
                     key={movie.id}
@@ -60,7 +64,12 @@ export const CheckoutSummary = () => {
 
             <S.ContentOrder>
                 <S.ContentButton>
-                    <Button onClick={handleCartClick}>FINALIZAR PEDIDO</Button>
+                    <Button
+                        onClick={handleFinalizePurchase}
+                        disabled={isLoadingFinalizePurchase}
+                    >
+                        FINALIZAR PEDIDO
+                    </Button>
                 </S.ContentButton>
                 <S.BoxValue>
                     <S.Text>TOTAL</S.Text>

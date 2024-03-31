@@ -6,7 +6,7 @@ import * as S from './Header.styled'
 
 export const Header = () => {
     const navigate = useNavigate()
-    const { cartItems, setSearchTerm } = useMovieStore()
+    const { moviesInCart, setSearchTerm } = useMovieStore()
     const { refetch } = useMovies()
 
     const redirectToCartPage = () => navigate('/carrinho')
@@ -27,7 +27,7 @@ export const Header = () => {
             <S.BoxCart onClick={redirectToCartPage}>
                 <S.ContentCart>
                     <S.Text>Meu Carrinho</S.Text>
-                    <S.TextQuantity>{cartItems.length || 0} itens</S.TextQuantity>
+                    <S.TextQuantity>{moviesInCart.length || 0} itens</S.TextQuantity>
                 </S.ContentCart>
                 <ShoppingBagIcon />
             </S.BoxCart>
