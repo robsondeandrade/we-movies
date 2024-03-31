@@ -36,30 +36,44 @@ Como Instalar e Executar o Projeto
 Pré-Requisitos
 Certifique-se de ter o Node.js e o npm instalados em sua máquina. Eles são necessários para executar o projeto.
 
-```
 Passos para Execução
 
 Clone o Repositório:
+
+```
 git clone https://github.com/robsondeandrade/we-movies.git
+```
 
 Acesse o Diretório do Projeto:
+
+```
 cd we-movies-react
+```
 
 Instale as Dependências:
+
+```
 npm install
+```
 
 Inicie o Servidor da API Simulada:
 O projeto simula uma API utilizando o json-server. Para iniciar o
 servidor, execute:
+
+```
 npm run server
+```
+
 Isso disponibilizará a API simulada localmente, geralmente no endereço http://localhost:5000, contendo a lista de filmes.
 
 Inicie a Aplicação:
 Com o servidor da API em execução, abra um novo terminal no mesmo diretório e inicie a aplicação com:
 
-npm run dev
-A aplicação estará disponível em http://localhost:5173, permitindo que você acesse as funcionalidades do projeto.
 ```
+npm run dev
+```
+
+A aplicação estará disponível em http://localhost:5173, permitindo que você acesse as funcionalidades do projeto.
 
 ## Telas do Projeto
 
@@ -71,6 +85,6 @@ A aplicação estará disponível em http://localhost:5173, permitindo que você
 
 <img src="docs/images/cart-page.png" width="100%" alt="Tela da Página do Carrinho">
 
-### Tela de Compra Realizada
+### Tela Compra Realizada
 
 <img src="docs/images/purchase-made-page.png" width="100%" alt="Tela da Página de Compra Realizada">
