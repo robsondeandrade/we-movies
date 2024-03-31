@@ -29,4 +29,8 @@ export const BoxQuantity = styled.div`
     border-radius: 4px;
     outline: none;
     font-size: 14px;
+
+    @media (max-width: 768px) {
+        width: 59px;
+    }
 `

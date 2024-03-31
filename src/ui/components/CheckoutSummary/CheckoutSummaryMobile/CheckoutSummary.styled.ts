@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: flex;
     width: 100%;
-    padding: 1rem;
     align-items: flex-start;
     justify-content: space-between;
     font-weight: 700;
@@ -16,11 +15,12 @@ export const BoxDetails = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 1.313rem;
 `
 
 export const TextTitle = styled.span`
     font-size: 0.875rem;
-    width: 80%;
+    width: 90%;
 `
 
 export const ContentInfoQuantity = styled.div`
@@ -29,6 +29,7 @@ export const ContentInfoQuantity = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin-left: 1rem;
+    width: 100%;
 `
 
 export const ContentInfoValue = styled.div`
@@ -37,7 +38,6 @@ export const ContentInfoValue = styled.div`
     align-items: flex-start;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
 `
 
 export const BoxValue = styled.div`

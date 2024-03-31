@@ -11,10 +11,16 @@ export const Container = styled.div`
     padding: 1.5rem;
     color: ${({ theme }) => theme.colors.primary};
     background-color: ${({ theme }) => theme.colors.secondary};
+
     @media (max-width: 1048px) {
         margin: 0 1rem;
     }
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
 `
+
 export const ContainerLoading = styled.div`
     display: flex;
     align-items: center;
